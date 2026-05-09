@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Lime Leaf — Authentic Thai Fine Dining, Basingstoke</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #0b1a0d;
+    --green-dark: #122018;
+    --green-mid: #1e3a26;
+    --green-accent: #2d5a3a;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --cream: #f5f0e8;
+    --cream-muted: #d4c9b5;
+    --white: #faf8f4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--green-deep);
+    color: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.4rem 4rem;
+    transition: background 0.4s, padding 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(11,26,13,0.96);
+    backdrop-filter: blur(12px);
+    padding: 1rem 4rem;
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--cream-muted);
+    text-decoration: none;
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 2rem 4rem;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 40%, rgba(45,90,58,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 20%, rgba(201,168,76,0.06) 0%, transparent 60%);
+  }
+  .hero-leaves {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .leaf {
+    position: absolute;
+    opacity: 0.06;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1s ease both;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 8vw, 6.5rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.01em;
+    color: var(--white);
+    margin-bottom: 0.2em;
+    animation: fadeUp 1s 0.15s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream-muted);
+    margin-bottom: 3rem;
+    letter-spacing: 0.03em;
+    animation: fadeUp 1s 0.3s ease both;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeUp 1s 0.45s ease both;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--green-deep);
+    padding: 0.85rem 2.2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent;
+    color: var(--cream);
+    padding: 0.85rem 2.2rem;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(245,240,232,0.3);
+    transition: border-color 0.3s, color 0.3s, transform 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold); color: var(--gold-light); transform: translateY(-2px); }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+  .scroll-hint span {
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(212,201,181,0.4);
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.5), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* DIVIDER */
+  .ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    color: var(--gold);
+    font-size: 1.1rem;
+    opacity: 0.7;
+  }
+  .ornament-line {
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+  .ornament-line.right {
+    background: linear-gradient(to left, transparent, var(--gold));
+  }
+
+  /* SECTIONS */
+  section { padding: 7rem 2rem; }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .section-title em { font-style: italic; color: var(--gold-light); }
+
+  /* ABOUT */
+  #about { background: var(--green-dark); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: center;
+  }
+  .about-text p {
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: var(--cream-muted);
+    margin-bottom: 1.5rem;
+  }
+  .about-text p strong {
+    color: var(--cream);
+    font-weight: 400;
+  }
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    padding: 2.5rem;
+    border: 1px solid rgba(201,168,76,0.2);
+    position: relative;
+  }
+  .about-stats::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: 20%;
+    width: 60%;
+    height: 2px;
+    background: var(--gold);
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    color: var(--gold-light);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-muted);
+  }
+
+  /* MENUS */
+  #menus { background: var(--green-deep); }
+  .menus-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3.5rem;
+  }
+  .menu-card {
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s, transform 0.3s;
+    cursor: pointer;
+  }
+  .menu-card::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+  .menu-card:hover { border-color: rgba(201,168,76,0.5); transform: translateY(-4px); }
+  .menu-card:hover::before { transform: scaleX(1); }
+  .menu-icon {
+    font-size: 2rem;
+    margin-bottom: 1.2rem;
+    display: block;
+  }
+  .menu-card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 0.7rem;
+  }
+  .menu-card-desc {
+    font-size: 0.85rem;
+    color: var(--cream-muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .menu-link {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+    padding-bottom: 2px;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .menu-link:hover { color: var(--gold-light); border-color: var(--gold-light); }
+
+  /* HOURS */
+  #hours { background: var(--green-mid); }
+  .hours-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .hours-table { margin-top: 2rem; width: 100%; }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(245,240,232,0.08);
+    font-size: 0.9rem;
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-day { color: var(--cream); letter-spacing: 0.05em; }
+  .hours-time { color: var(--cream-muted); text-align: right; font-size: 0.85rem; }
+  .hours-time .break { display: block; }
+  .closed { color: rgba(212,201,181,0.35); font-style: italic; }
+  .today-badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--gold-light);
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    margin-left: 0.7rem;
+    vertical-align: middle;
+  }
+  .location-box {
+    background: rgba(11,26,13,0.5);
+    border: 1px solid rgba(201,168,76,0.15);
+    padding: 2.5rem;
+  }
+  .location-box h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+  .location-detail {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+  .location-detail-icon {
+    color: var(--gold);
+    font-size: 0.8rem;
+    margin-top: 0.15rem;
+    letter-spacing: 0.1em;
+    min-width: 1rem;
+  }
+  .location-detail-text {
+    font-size: 0.92rem;
+    color: var(--cream-muted);
+    line-height: 1.6;
+  }
+  .location-detail-text a {
+    color: var(--cream-muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .location-detail-text a:hover { color: var(--gold-light); }
+  .map-placeholder {
+    margin-top: 1.8rem;
+    height: 160px;
+    background: rgba(45,90,58,0.25);
+    border: 1px solid rgba(201,168,76,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(212,201,181,0.3);
+  }
+  .map-link-btn {
+    display: block;
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    padding: 0.7rem;
+    border: 1px solid rgba(201,168,76,0.25);
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .map-link-btn:hover {
+    background: rgba(201,168,76,0.08);
+    border-color: rgba(201,168,76,0.5);
+  }
+
+  /* BOOKING CTA */
+  #book {
+    background: var(--green-dark);
+    text-align: center;
+    padding: 8rem 2rem;
+  }
+  .book-inner { max-width: 600px; margin: 0 auto; }
+  .book-inner .section-title { font-size: clamp(2.5rem, 5vw, 4rem); margin-bottom: 1rem; }
+  .book-inner p {
+    color: var(--cream-muted);
+    font-size: 1rem;
+    line-height: 1.8;
+    margin-bottom: 2.5rem;
+  }
+  .book-tel {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    font-style: italic;
+    color: var(--cream-muted);
+    margin-top: 1.5rem;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .book-tel:hover { color: var(--gold-light); }
+
+  /* FOOTER */
+  footer {
+    background: #060e07;
+    padding: 3rem 2rem;
+    text-align: center;
+    border-top: 1px solid rgba(201,168,76,0.1);
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    list-style: none;
+    margin-bottom: 1.5rem;
+  }
+  .footer-links a {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(212,201,181,0.4);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(212,201,181,0.25);
+    letter-spacing: 0.05em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.15); }
+  }
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    nav.scrolled { padding: 0.9rem 1.5rem; }
+    .nav-links { display: none; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .menus-grid { grid-template-columns: 1fr; }
+    .hours-layout { grid-template-columns: 1fr; gap: 3rem; }
+    section { padding: 5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">The Lime Leaf</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#menus">Menus</a></li>
+    <li><a href="#hours">Visit</a></li>
+    <li><a href="#book">Book a Table</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-leaves">
+    <!-- Decorative SVG leaves -->
+    <svg class="leaf" style="top:-5%;left:-8%;width:420px;" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M150 380 Q20 280 10 150 Q0 20 150 10 Q300 0 290 150 Q280 300 150 380Z" fill="#2d5a3a"/>
+      <line x1="150" y1="380" x2="150" y2="10" stroke="#c9a84c" stroke-width="0.5"/>
+      <line x1="150" y1="200" x2="80" y2="100" stroke="#c9a84c" stroke-width="0.3"/>
+      <line x1="150" y1="200" x2="220" y2="100" stroke="#c9a84c" stroke-width="0.3"/>
+      <line x1="150" y1="250" x2="60" y2="160" stroke="#c9a84c" stroke-width="0.3"/>
+      <line x1="150" y1="250" x2="240" y2="160" stroke="#c9a84c" stroke-width="0.3"/>
+    </svg>
+    <svg class="leaf" style="bottom:-10%;right:-6%;width:380px;transform:rotate(140deg);" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M150 380 Q20 280 10 150 Q0 20 150 10 Q300 0 290 150 Q280 300 150 380Z" fill="#1e3a26"/>
+      <line x1="150" y1="380" x2="150" y2="10" stroke="#c9a84c" stroke-width="0.5"/>
+    </svg>
+    <svg class="leaf" style="top:20%;right:5%;width:200px;transform:rotate(-20deg);opacity:0.04;" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M100 290 Q10 200 10 100 Q10 10 100 10 Q190 10 190 100 Q190 200 100 290Z" fill="#c9a84c"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Authentic Thai Fine Dining · Basingstoke</p>
+    <h1 class="hero-title">The<br><em>Lime Leaf</em></h1>
+    <p class="hero-subtitle">A little piece of Thailand in the heart of Hampshire</p>
+    <div class="hero-actions">
+      <a href="https://web.dojo.app/create_booking/vendor/t17hKWSmgiddqomqI4HD_SVLlG8wW1-cq3dSRsiR0Ks_restaurant" class="btn-primary" target="_blank">Reserve a Table</a>
+      <a href="#menus" class="btn-outline">View Menus</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">Where<br><em>Thailand meets</em><br>Hampshire</h2>
+        <div class="ornament">
+          <span class="ornament-line"></span>
+          ✦
+          <span class="ornament-line right"></span>
+        </div>
+        <p>Set in a <strong>historic part of Basingstoke</strong> known as the 'Top of Town', The Lime Leaf brings an authentic mixture of history and fine Thai cuisine together under one roof.</p>
+        <p>Using our Thai roots, we've created a restaurant with vibrant decor and atmosphere designed to transport you — so you feel like you've found your very own piece of Thailand, right here in the heart of Hampshire.</p>
+        <p>We pride ourselves on <strong>delicious food and excellent customer service</strong>, and we're often described as one of the best restaurants in Basingstoke.</p>
+      </div>
+      <div class="about-stats reveal">
+        <div class="stat-item">
+          <span class="stat-num">15+</span>
+          <span class="stat-label">Years Serving</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">★★★★★</span>
+          <span class="stat-label">TripAdvisor</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">3</span>
+          <span class="stat-label">Distinct Menus</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label">Thai Roots</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENUS -->
+<section id="menus">
+  <div class="section-inner">
+    <div class="reveal" style="text-align:center;">
+      <p class="section-label">Dining</p>
+      <h2 class="section-title">Our <em>Menus</em></h2>
+      <p style="color:var(--cream-muted);font-size:0.95rem;max-width:480px;margin:0 auto;line-height:1.8;">From relaxed weekday lunches to special evening celebrations — there is a menu for every occasion.</p>
+    </div>
+    <div class="menus-grid">
+      <div class="menu-card reveal">
+        <span class="menu-icon">🍽</span>
+        <h3 class="menu-card-title">À La Carte & Set Menu</h3>
+        <p class="menu-card-desc">Our full dining experience. Choose freely from the à la carte, or let us guide you through a curated set menu journey.</p>
+        <a href="https://thelimeleaf.co.uk/alacarteandsetmenu.pdf" class="menu-link" target="_blank">View Menu →</a>
+      </div>
+      <div class="menu-card reveal" style="transition-delay:0.1s;">
+        <span class="menu-icon">🌅</span>
+        <h3 class="menu-card-title">Early Bird Menu</h3>
+        <p class="menu-card-desc">The perfect way to start your evening. Arrive early and enjoy exceptional Thai cuisine at a special price.</p>
+        <a href="https://thelimeleaf.co.uk/earlybird.pdf" class="menu-link" target="_blank">View Menu →</a>
+      </div>
+      <div class="menu-card reveal" style="transition-delay:0.2s;">
+        <span class="menu-icon">☀️</span>
+        <h3 class="menu-card-title">Lunch Menu</h3>
+        <p class="menu-card-desc">A lighter midday experience. Great value, generous flavours — ideal for a midweek treat or weekend catch-up.</p>
+        <a href="https://thelimeleaf.co.uk/lunchmenu.pdf" class="menu-link" target="_blank">View Menu →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOURS & LOCATION -->
+<section id="hours">
+  <div class="section-inner">
+    <div class="hours-layout">
+      <div class="reveal">
+        <p class="section-label">Opening Hours</p>
+        <h2 class="section-title">When to <em>Visit</em></h2>
+        <table class="hours-table">
+          <tbody>
+            <tr class="hours-row">
+              <span class="hours-day">Monday</span>
+              <span class="hours-time">5:00 PM – 10:00 PM</span>
+            </tr>
+            <tr class="hours-row">
+              <span class="hours-day">Tuesday</span>
+              <span class="hours-time">
+                <span class="break">12:00 PM – 2:30 PM</span>
+                <span class="break">5:00 PM – 10:00 PM</span>
+              </span>
+            </tr>
+            <tr class="hours-row">
+              <span class="hours-day">Wednesday</span>
+              <span class="hours-time">
+                <span class="break">12:00 PM – 2:30 PM</span>
+                <span class="break">5:00 PM – 10:00 PM</span>
+              </span>
+            </tr>
+            <tr class="hours-row">
+              <span class="hours-day">Thursday</span>
+              <span class="hours-time">
+                <span class="break">12:00 PM – 2:30 PM</span>
+                <span class="break">5:00 PM – 10:00 PM</span>
+              </span>
+            </tr>
+            <tr class="hours-row">
+              <span class="hours-day">Friday</span>
+              <span class="hours-time">
+                <span class="break">12:00 PM – 2:30 PM</span>
+                <span class="break">5:00 PM – 10:00 PM</span>
+              </span>
+            </tr>
+            <tr class="hours-row">
+              <span class="hours-day">Saturday</span>
+              <span class="hours-time">
+                <span class="break">12:00 PM – 2:30 PM</span>
+                <span class="break">5:00 PM – 10:00 PM</span>
+              </span>
+            </tr>
+            <tr class="hours-row">
+              <span class="hours-day">Sunday</span>
+              <span class="hours-time">12:00 PM – 9:00 PM</span>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="reveal" style="transition-delay:0.15s;">
+        <div class="location-box">
+          <h3>Find Us</h3>
+          <div class="location-detail">
+            <span class="location-detail-icon">✦</span>
+            <span class="location-detail-text">25–25A London Street<br>Basingstoke, RG21 7PG<br>Hampshire, England</span>
+          </div>
+          <div class="location-detail">
+            <span class="location-detail-icon">✦</span>
+            <span class="location-detail-text"><a href="tel:01256280823">01256 280823</a></span>
+          </div>
+          <div class="location-detail">
+            <span class="location-detail-icon">✦</span>
+            <span class="location-detail-text"><a href="mailto:info@thelimeleaf.co.uk">info@thelimeleaf.co.uk</a></span>
+          </div>
+          <div class="map-placeholder">
+            Map · Top of Town, Basingstoke
+          </div>
+          <a href="https://maps.app.goo.gl/JRdNQE4H5ARxrXQq9" class="map-link-btn" target="_blank">Get Directions →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BOOKING CTA -->
+<section id="book">
+  <div class="book-inner reveal">
+    <p class="section-label">Reservations</p>
+    <h2 class="section-title">Reserve Your<br><em>Table</em></h2>
+    <div class="ornament">
+      <span class="ornament-line"></span>✦<span class="ornament-line right"></span>
+    </div>
+    <p>Whether it's a quiet dinner for two or a celebration with friends, we'd love to have you. Book online in seconds, or give us a call.</p>
+    <a href="https://web.dojo.app/create_booking/vendor/t17hKWSmgiddqomqI4HD_SVLlG8wW1-cq3dSRsiR0Ks_restaurant" class="btn-primary" target="_blank" style="font-size:0.8rem;">Book Online Now</a>
+    <a href="tel:01256280823" class="book-tel">or call 01256 280823</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">The Lime Leaf</span>
+  <ul class="footer-links">
+    <li><a href="https://www.facebook.com/TheLimeLeaf" target="_blank">Facebook</a></li>
+    <li><a href="https://www.tripadvisor.co.uk/Restaurant_Review-g187054-d1381961-Reviews-The_Lime_Leaf-Basingstoke_Hampshire_England.html" target="_blank">TripAdvisor</a></li>
+    <li><a href="mailto:info@thelimeleaf.co.uk">Email Us</a></li>
+    <li><a href="#book">Book a Table</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 The Lime Leaf. Authentic Thai Fine Dining, Basingstoke.</p>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => observer.observe(r));
+
+  // Highlight today's hours
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const today = days[new Date().getDay()];
+  document.querySelectorAll('.hours-day').forEach(el => {
+    if (el.textContent.trim() === today) {
+      const badge = document.createElement('span');
+      badge.className = 'today-badge';
+      badge.textContent = 'Today';
+      el.appendChild(badge);
+    }
+  });
+</script>
+</body>
+</html>
